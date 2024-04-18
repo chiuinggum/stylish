@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Set the height of the body to the full viewport height */
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.container > div {
+    box-sizing: border-box;
+    width: 50%;
+    height: 50vh;
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.totalRevenue {
+    /* background-color: aqua; */
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

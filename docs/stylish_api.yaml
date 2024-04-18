@@ -1,0 +1,968 @@
+openapi: 3.0.0
+info:
+  title: Stylish API docs
+  version: 1.0.0
+tags:
+  - name: products
+    description: product related endpoints
+  - name: user
+    description: user related endpoints
+  - name: order
+    description: order related endpoints
+paths:
+  /products/create:
+    post:
+      tags:
+        - products
+      summary: create a product
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      responses:
+        '200':
+          description: a product object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Product'
+  /products/all:
+    get:
+      tags:
+        - products
+      summary: list all the products
+      parameters:
+        - in: query
+          name: paging
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: an array of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  next_paging:
+                    type: integer
+                    example: 1
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/men:
+     get:
+      tags:
+        - products
+      summary: list all the men products
+      parameters:
+        - in: query
+          name: paging
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: an array of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  next_paging:
+                    type: integer
+                    example: 1
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/women:
+     get:
+      tags:
+        - products
+      summary: list all the women products
+      parameters:
+        - in: query
+          name: paging
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: an array of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  next_paging:
+                    type: integer
+                    example: 1
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/search:
+    get:
+      tags:
+        - products
+      parameters:
+        - in: query
+          required: true
+          name: keyword
+          schema:
+            type: string
+        - in: query
+          name: paging
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: an array of products matching the keywords
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  next_paging:
+                    type: integer
+                    example: 1
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/details:
+    get:
+      tags:
+        - products
+      parameters:
+        - in: query
+          required: true
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: details of a product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Product'
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/delete:
+    get:
+      tags:
+        - products
+      summary: soft delete a product
+      parameters:
+        - in: query
+          required: true
+          name: id
+          schema:
+            type: integer
+            description: product id
+            example: 1234
+      responses:
+        '200':
+          description: success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: product deleted
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /products/recover:
+    get:
+      tags:
+        - products
+      summary: recover a soft deleted product
+      parameters:
+        - in: query
+          required: true
+          name: id
+          schema:
+            type: integer
+            description: product id
+            example: 1234
+      responses:
+        '200':
+          description: success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: product recovered
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+
+  /user/signup:
+    post:
+      tags:
+        - user
+      summary: sign up a user
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          schema:
+            type: string
+            example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSignUpRequest'
+      responses:
+        '200':
+          description: access_token, access_expired, and a user object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Token'
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/UserResponse'
+        '409':
+          description: email already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: email already exists
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /user/signin:
+    post:
+      tags:
+        - user
+      summary: sign in a user
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          schema:
+            type: string
+            example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/UserSignInRequest1'
+                - $ref: '#/components/schemas/UserSignInRequest2'
+      responses:
+        '200':
+          description: access_token, access_expired, and a user object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Token'
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/UserResponse'
+        '403':
+          description: sign in failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: email or password is incorrect
+        '400':
+          description: client error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error messages
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /user/profile:
+    get:
+      tags:
+        - user
+      summary: get user profile
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+            description: access token preceding with Bearer
+            example: Bearer {access_token}
+
+      responses:
+        '200':
+          description: provider and a user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      provider:
+                        type: string
+                        example: facebook
+                      name:
+                        type: string
+                        example: John
+                      email:
+                        type: string
+                        example: john@appworks.com
+                      picture:
+                        type: string
+                        example: https://stylish.com/picture.jpg
+        '401':
+          description: client error (no token) response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: token is required
+        '403':
+          description: client error (wrong token) response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: token is invalid
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+
+  /order/checkout:
+    post:
+      tags:
+        - order
+      summary: checkout an order
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          schema:
+            type: string
+            enum:
+              - application/json
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+            description: access token preceding with Bearer
+            example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prime:
+                  type: string
+                  description: prime key from TapPay
+                  example: 1234567890
+                order:
+                  type: object
+                  properties:
+                    shipping:
+                      type: string
+                      description: shipping method
+                      example: delivery
+                    payment:
+                      type: string
+                      description: payment method
+                      example: credit_card
+                    subtotal:
+                      type: integer
+                      description: price excluded freight fee
+                      example: 1000
+                    freight:
+                      type: integer
+                      description: freight fee
+                      example: 60
+                    total:
+                      type: integer
+                      description: final price
+                      example: 1060
+                    recipient:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: recipient name
+                          example: John
+                        phone:
+                          type: string
+                          description: recipient phone
+                          example: 0987654321
+                        email:
+                          type: string
+                          description: recipient email
+                          example: john@appworks.com
+                        address:
+                          type: string
+                          description: recipient address
+                          example: 市政府站
+                        time:
+                          type: string
+                          description: delivery time
+                          example: morning
+                    list:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: product id
+                            example: 1234
+                          name:
+                            type: string
+                            description: product name
+                            example: 厚實毛呢格子外套
+                          price:
+                            type: integer
+                            description: product price
+                            example: 2200
+                          color:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                description: color code
+                                example: 334455
+                              name:
+                                type: string
+                                description: color name
+                                example: 深藍
+                          size:
+                            type: string
+                            description: product size
+                            example: S
+                          qty:
+                            type: integer
+                            description: product quantity
+                            example: 1
+      responses:
+        '200':
+          description: order number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      number:
+                        type: integer
+                        description: order number
+                        example: 1234567890
+        '401':
+          description: client error (no token) response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: token is required
+        '403':
+          description: client error (wrong token) response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: token is invalid
+        '500':
+          description: server error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error message
+
+components:
+  schemas:
+    ProductRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: product id
+          example: 1234
+        category:
+          type: string
+          description: product category
+          example: men
+        title:
+          type: string
+          description: product title
+          example: 厚實毛呢格子外套
+        description:
+          type: string
+          description: product description
+          example: 高抗寒素材選用，保暖也時尚有型
+        price:
+          type: integer
+          description: product price
+          example: 2200
+        texture:
+          type: string
+          description: product texture
+          example: 棉、聚脂纖維
+        wash:
+          type: string
+          description: product description
+          example: 手洗（水溫40度）
+        place:
+          type: string
+          description: place of production
+          example: 韓國
+        note:
+          type: string
+          description: the note of product
+          example: 實品顏色以單品照為主
+        story:
+          type: string
+          description: product multiline story
+          example: 你絕對不能錯過的超值商品
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Color'
+          description: possible color choices
+          example:
+            - code: "334455"
+              name: 深藍
+            - code: FFFFFF
+              name: 白色
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+          description: possible variants, including stock records
+          example:
+            - color_code: "334455"
+              size: S
+              stock: 5
+            - color_code: "334455"
+              size: M
+              stock: 10
+            - color_code: FFFFFF
+              size: S
+              stock: 0
+            - color_code: FFFFFF
+              size: M
+              stock: 2
+        main_image:
+          type: string
+          format: binary
+          description: main image
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
+          description: other images
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: product id
+          example: 1234
+        category:
+          type: string
+          description: product category
+          example: men
+        title:
+          type: string
+          description: product title
+          example: 厚實毛呢格子外套
+        description:
+          type: string
+          description: product description
+          example: 高抗寒素材選用，保暖也時尚有型
+        price:
+          type: integer
+          description: product price
+          example: 2200
+        texture:
+          type: string
+          description: product texture
+          example: 棉、聚脂纖維
+        wash:
+          type: string
+          description: product description
+          example: 手洗（水溫40度）
+        place:
+          type: string
+          description: place of production
+          example: 韓國
+        note:
+          type: string
+          description: the note of product
+          example: 實品顏色以單品照為主
+        story:
+          type: string
+          description: product multiline story
+          example: 你絕對不能錯過的超值商品
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Color'
+          description: possible color choices
+          example:
+            - name: 深藍
+              code: "334455"
+            - name: 白色
+              code: FFFFFF
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+          description: possible variants, including stock records
+          example:
+            - color_code: "334455"
+              size: S
+              stock: 5
+            - color_code: "334455"
+              size: M
+              stock: 10
+            - color_code: FFFFFF
+              size: S
+              stock: 0
+            - color_code: FFFFFF
+              size: M
+              stock: 2
+        main_image:
+          type: string
+          description: main image
+          example: https://stylish.com/main.jpg
+        images:
+          type: array
+          items:
+            type: string
+          description: other images
+          example:
+            - "https://stylish.com/0.jpg"
+            - "https://stylish.com/1.jpg"
+            - "https://stylish.com/2.jpg"
+    Color:
+      type: object
+      properties:
+        name:
+          type: string
+          description: color's name
+          example: 深藍
+        code:
+          type: string
+          description: color's hex code
+          example: "334455"
+    Variant:
+      type: object
+      properties:
+        color_code:
+          type: string
+          description: hex color code
+          example: 334455
+        size:
+          type: string
+          description: size
+          example: S
+        stock:
+          type: integer
+          description: stock
+          example: 5
+    UserSignUpRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: user name
+          example: John
+        email:
+          type: string
+          description: user email
+          example: john@appworks.com
+        password:
+          type: string
+          description: user password
+          example: 12345678
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: user id
+          example: 1
+        provider:
+          type: string
+          description: user provider
+          example: facebook
+        name:
+          type: string
+          description: user name
+          example: John
+        email:
+          type: string
+          description: user email
+          example: john@appworks.com
+        picture:
+          type: string
+          description: user picture
+          example: https://stylish.com/picture.jpg
+    Token:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: access token
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6joiYXJ0aHVIjoxNjEzNTY3MzA0fQ.6EPCOfBGynidAfpVqlvbHGWHCJ5LZLtKvPaQ
+        access_expired:
+          type: integer
+          description: access token expired time
+          example: 3600
+    UserSignInRequest1:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: user provider
+          example: native
+        email:
+          type: string
+          description: user email
+          example: john@appworks.com
+        password:
+          type: string
+          description: user password
+          example: 12345678
+    UserSignInRequest2:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: user provider
+          example: facebook
+        access_token:
+          type: string
+          description: access token
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6joiYXJ0aHVIjoxNjEzNTY3MzA0fQ.6EPCOfBGynidAfpVqlvbHGWHCJ5LZLtKvPaQ
+

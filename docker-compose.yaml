@@ -1,0 +1,28 @@
+version: "3"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server-container
+    ports:
+      - 3000
+    volumes:
+      - .:/app
+      - '/app/node_modules'
+    networks:
+      - stylish-network
+    image: chiuinggum/stylish-server
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-container
+    ports:
+      - 80:80
+    networks:
+      - stylish-network
+    image: chiuinggum/stylish-nginx
+networks:
+  stylish-network:
+    driver: bridge

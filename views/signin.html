@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="signin_styles.css">
+        <title>User Sign Up</title>
+        <script src="signin_script.js"></script>
+    </head>
+    <body>
+        <div class="login-page">
+            <h2>User Sign Up</h2>
+            <form class="sign-up-form" id="sign-up-form">
+                <label for="provider">Provider:</label>
+                <input type="text" id="provider" name="provider" required>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="button" onclick="handleUserSignUp()">Sign Up</button>
+            </form>
+        </div>
+    </body>
+</html>

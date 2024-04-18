@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="dashboard.css">
+        <title>Dashboard</title>
+        <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <script type="module" src="dashboard_script.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <div class="container">
+            <div id="totalRevenue" class="totalRevenue">
+                <h1 style="font-size: 60px; font-family: Arial; font-weight: normal;">Total Revenue: <span id="totalRevenueValue">Loading...</span></h1>
+            </div>
+            <div id="pieChart"></div>
+            <div id="histogram"></div>
+            <div id="barChart"></div>
+        </div>
+
+        <script>
+            let socket = io();
+            socket.on('updateData', () => {
+                location.reload();
+            })
+        </script>
+    </body>
+</html>
